@@ -134,7 +134,18 @@ Note that I changed the `--vrtsim.timescale` parameter to `0.5` due to the GPU a
 
 *UE*
 
-Since we are all using the same core network, it is also necessary that every user uses a different IMSI for the UE. To make things easy I suggest you use the same last digit as the `nr_cellid`. So in our case add `--uicc0.imsi 001010000000002` to the UE command line.
+Since we are all using the same core network, it is also necessary that every user uses a different IMSI for the UE. For our lab we have assigned the IMSI range `001010000000030` - `001010000000050`. Coordinate with others so that we don't use the same. 
+
+Create a file ~/openairinterface5g/targets/PROJECTS/GENERIC-NR-5GC/CONF/ue-os-core.conf
+
+```file
+uicc0 = {
+imsi = "001010000000030";
+key = "8BAF473F2F8FD09487CCCBD7097C6862";
+opc= "8e27b6af0e692e750f32667a3b14605d";
+pdu_sessions = ({ dnn = "internet"; nssai_sst = 1; type="ipv4"});
+}
+```
 
 ```
 cd ~/openairinterface5g/cmake_targets/ran_build/build
@@ -147,8 +158,7 @@ sudo ./nr-uesoftmodem \
   --ssb 516 \
   --device.name vrtsim \
   --vrtsim.taps-socket ipc:///tmp/ue_socket_0 \
-  -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/ue.conf \
-  --uicc0.imsi 001010000000002
+  -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/ue-os-core.conf \
 ```
 
 *Channel Emulator*
