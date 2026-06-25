@@ -47,10 +47,10 @@ Select "OAI GPU Dev" from the section  "GPU Small (1g.18gb)" and click on "Start
 
 ### Compiling
 
-Compile the openairinterface project like described in the tutorial. Additionally you may add `-DENABLE_CHANNEL_SIM_CUDA=ON` to your cmake command to accelerate the channel simulation using GPUs. 
+Compile the openairinterface project like described in the tutorial. Additionally you may add `-DENABLE_CHANNEL_SIM_CUDA=ON` to your cmake command to accelerate the channel simulation using GPUs. You also have to set some CUDA compile options. 
 
 ```bash
-./build_oai -w None --ninja --nrUE --gNB --cmake-opt -DOAI_VRTSIM_TAPS_CLIENT=ON --cmake-opt -DENABLE_CHANNEL_SIM_CUDA=ON
+./build_oai -w None --ninja --nrUE --gNB --cmake-opt -DOAI_VRTSIM_TAPS_CLIENT=ON --cmake-opt -DENABLE_CHANNEL_SIM_CUDA=ON  --cmake-opt -DCMAKE_CUDA_ARCHITECTURES=native  --cmake-opt -DCMAKE_CUDA_COMPILER=/usr/local/cuda/bin/nvcc
 ```
 
 ### Configuration
@@ -160,6 +160,7 @@ python main.py scenes/EURECOM/example_config.yaml
 ```
 
 *LMF*
+
 Last but not least to start the positioning request you will need to use the IP address of the LMF running on the openshift cluster instead of the local one. Also you will need to adapt the IMSI in the `InputData.json` to match the one you configured the UE with. 
 
 ```
