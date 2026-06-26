@@ -5,9 +5,9 @@ Collection of material for the 2026 summer school OAI hands on tutorial
 
 For this tutorial you have the possibility to use Eurecom Jupyterhub cluster, which is part of the SLICES Research Infrastructure ([SLICES-RI](https://www.slices-ri.eu/)). This gives you access to some state of the art GPU accelerated compute infrastructure. It can be accessed from [here](https://jupyterhub.slices.cs.eurecom.fr/).
 
-The jupyterhub is available to all SLICES partners using their home institutions SSO. You can check if your host institution is a partner [here](https://www.slices-ri.eu/community/). If yes you can create a SLICES account [here](https://portal.slices-ri.eu/signup). After your account has been created, please select "Join Existing Project" and select [...]. More information [here](https://doc.slices-ri.eu/SupportingServices/getanaccount.html).
+The jupyterhub is available to all SLICES partners using their home institutions SSO. You can check if your host institution is a partner [here](https://www.slices-ri.eu/community/). If yes you can create a SLICES account [here](https://portal.slices-ri.eu/signup). You can skip the step "Create or Join Project". More information [here](https://doc.slices-ri.eu/SupportingServices/getanaccount.html).
 
-Once your SLICES account is created and you have joined the project, you can sign in the jupyterhub by selecting "Sign in with Keycloak" and then slicesri. Please double check that this is working and let me know if not. 
+Once your SLICES account is created, you can sign in the jupyterhub by selecting "Sign in with Keycloak" and then slicesri. Please double check that this is working and let me know if not. 
 
 If your home institution is not a SLICES partner, don't despair - just get in touch with me directly and I will give you access through the Eurecom gitlab. 
 
