@@ -47,17 +47,30 @@ Select "OAI GPU Dev" from the section  "GPU Small (1g.18gb)" and click on "Start
 
 ### Compiling
 
-Compile the openairinterface project like described in the tutorial. Additionally you may add `-DENABLE_CHANNEL_SIM_CUDA=ON` to your cmake command to accelerate the channel simulation using GPUs. You also have to set some CUDA compile options. 
+There is no need to run `./build_oai -I` on jupyterhub - all the dependencies are already installed.
+
+Compiling the code in your home directory might be slow, since your storage is a persitant S3 storage on the SLICES infrastructure. You should checkout and compile your code on `/tmp` instead. 
+
+Also, you should use `cmake` and `ninja` to build code instead of the `./build_oai` script for more fine grain control.
+
+On jupyterhub you may add `-DENABLE_CHANNEL_SIM_CUDA=ON` to the build options to accelerate the channel simulation using GPUs. You also have to set some CUDA compile options. 
+
+In summary
 
 ```bash
-./build_oai -w None --ninja --nrUE --gNB --cmake-opt -DOAI_VRTSIM_TAPS_CLIENT=ON --cmake-opt -DENABLE_CHANNEL_SIM_CUDA=ON  --cmake-opt -DCMAKE_CUDA_ARCHITECTURES=native  --cmake-opt -DCMAKE_CUDA_COMPILER=/usr/local/cuda/bin/nvcc
+cd /tmp
+git clone https://github.com/duranta-project/openairinterface5g.git
+mkdir build
+cd build
+cmake .. -GNinja -DOAI_VRTSIM_TAPS_CLIENT=ON -DENABLE_CHANNEL_SIM_CUDA=ON  -DCMAKE_CUDA_ARCHITECTURES=native  -DCMAKE_CUDA_COMPILER=/usr/local/cuda/bin/nvcc
+ninja -j8
 ```
 
 ### Configuration
 
 When running on the Eurecom jupyterhub, we do not need to deploy the core network as we will be using the core network already deployed on the Eurecom openshift cluster. So you can skip parts 5.3 and 6.1 of the tutorial. 
 
-For PLMN `00101` the AMF IP address of the core network is `172.21.6.4`. 
+For PLMN `00101` the AMF IP address of the core network is `172.21.6.13`. 
 
 Since we are all using the same core network, it would be good to use different `gNB_name` and `nr_cellid`. Please coordinate this with others in the group.
 
@@ -100,7 +113,7 @@ index b7cbcddd7d..807a7d13ba 100644
      ////////// AMF parameters:
 -    #amf_ip_address = ({ ipv4 = "172.21.6.4"; });
 -    amf_ip_address = ({ ipv4 = "192.168.70.132"; });
-+    amf_ip_address = ({ ipv4 = "172.21.6.4"; });
++    amf_ip_address = ({ ipv4 = "172.21.6.13"; });
 +    #amf_ip_address = ({ ipv4 = "192.168.70.132"; });
      NETWORK_INTERFACES :
      {
@@ -134,15 +147,15 @@ Note that I changed the `--vrtsim.timescale` parameter to `0.5` due to the GPU a
 
 *UE*
 
-Since we are all using the same core network, it is also necessary that every user uses a different IMSI for the UE. For our lab we have assigned the IMSI range `001010000000030` - `001010000000050`. Coordinate with others so that we don't use the same. 
+Since we are all using the same core network, it is also necessary that every user uses a different IMSI for the UE. For our lab we have assigned the IMSI range `001010000000102` - `001010000000200`. Coordinate with others so that we don't use the same. 
 
 Create a file ~/openairinterface5g/targets/PROJECTS/GENERIC-NR-5GC/CONF/ue-os-core.conf
 
 ```file
 uicc0 = {
-imsi = "001010000000030";
-key = "8BAF473F2F8FD09487CCCBD7097C6862";
-opc= "8e27b6af0e692e750f32667a3b14605d";
+imsi = "001010000000102";
+key = "fec86ba6eb707ed08905757b1bb44b8f";
+opc= "C42449363BBAD02B66D16BC975D77CC1";
 pdu_sessions = ({ dnn = "internet"; nssai_sst = 1; type="ipv4"});
 }
 ```
