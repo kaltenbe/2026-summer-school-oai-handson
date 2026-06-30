@@ -191,5 +191,5 @@ cd ~/openairinterface5g/doc/tutorial_resources/positioning
 curl --http2-prior-knowledge \
   -H "Content-Type: application/json" \
   -d "@InputData.json" \
-  -X POST http://172.21.4.117:30080/nlmf-loc/v1/determine-location
+  -X POST http://172.21.4.117:30091/nlmf-loc/v1/determine-location
 ```
