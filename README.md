@@ -187,7 +187,7 @@ python main.py scenes/EURECOM/example_config.yaml
 Last but not least to start the positioning request you will need to use the IP address of the LMF running on the openshift cluster instead of the local one. Also you will need to adapt the IMSI in the `InputData.json` to match the one you configured the UE with. 
 
 ```
-cd ~/openairinterface5g/doc/tutorial_resources/oai-cn5g/positioning
+cd ~/openairinterface5g/doc/tutorial_resources/positioning
 curl --http2-prior-knowledge \
   -H "Content-Type: application/json" \
   -d "@InputData.json" \
