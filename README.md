@@ -49,7 +49,7 @@ Select "OAI GPU Dev" from the section  "GPU Small (1g.18gb)" and click on "Start
 
 There is no need to run `./build_oai -I` on jupyterhub - all the dependencies are already installed.
 
-Compiling the code in your home directory might be slow, since your storage is a persitant S3 storage on the SLICES infrastructure. You should checkout and compile your code on `/tmp` instead. 
+Compiling the code in your home directory might be slow, since your storage is a persitant S3 storage on the SLICES infrastructure. You should checkout and compile your code on `/tmp` instead. However, this storage is ephermal and will be erased when you stop your server. 
 
 Also, you should use `cmake` and `ninja` to build code instead of the `./build_oai` script for more fine grain control.
 
@@ -66,6 +66,18 @@ mkdir build
 cd build
 cmake .. -GNinja -DOAI_VRTSIM_TAPS_CLIENT=ON -DENABLE_CHANNEL_SIM_CUDA=ON  -DCMAKE_CUDA_ARCHITECTURES=native  -DCMAKE_CUDA_COMPILER=/usr/local/cuda/bin/nvcc
 ninja -j8
+```
+
+Afterwards you can copy the executables (without objec files) back to your home folder so that they will be there even if you restart your server. You might want to also checkout another copy of the repository to easier keep track of the config files (see next step).
+
+```bash
+cd
+git clone https://github.com/duranta-project/openairinterface5g.git
+cd openairinterface5g
+git checkout nrppa_mac_and_rrc_procedures
+mkdir build
+cd build
+cp /tmp/openairinterface5g/build/* .
 ```
 
 ### Configuration
@@ -134,10 +146,10 @@ You can now run the gNB, the UE, and the channel emulator as described in the tu
 *gNB*
 
 ```
-cd ~/openairinterface5g/cmake_targets/ran_build/build
+cd ~/openairinterface5g/build
 
 sudo ./nr-softmodem \
-  -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band78.fr1.106PRB.positioning.conf \
+  -O /../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band78.fr1.106PRB.positioning.conf \
   --gNBs.[0].min_rxtxtime 6 \
   --device.name vrtsim \
   --vrtsim.role server \
@@ -151,7 +163,7 @@ Note that I changed the `--vrtsim.timescale` parameter to `0.5` due to the GPU a
 
 Since we are all using the same core network, it is also necessary that every user uses a different IMSI for the UE. For our lab we have assigned the IMSI range `001010000000102` - `001010000000200`. Coordinate with others so that we don't use the same. 
 
-Create a file ~/openairinterface5g/targets/PROJECTS/GENERIC-NR-5GC/CONF/ue-os-core.conf
+Edit the file `~/openairinterface5g/targets/PROJECTS/GENERIC-NR-5GC/CONF/ue.conf` with the following info.
 
 ```file
 uicc0 = {
@@ -163,7 +175,7 @@ pdu_sessions = ({ dnn = "internet"; nssai_sst = 1; type="ipv4"});
 ```
 
 ```
-cd ~/openairinterface5g/cmake_targets/ran_build/build
+cd ~/openairinterface5g/build
 
 sudo ./nr-uesoftmodem \
   -C 3619200000 \
@@ -173,7 +185,7 @@ sudo ./nr-uesoftmodem \
   --ssb 516 \
   --device.name vrtsim \
   --vrtsim.taps-socket ipc:///tmp/ue_socket_0 \
-  -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/ue-os-core.conf \
+  -O ../targets/PROJECTS/GENERIC-NR-5GC/CONF/ue.conf \
 ```
 
 *Channel Emulator*
