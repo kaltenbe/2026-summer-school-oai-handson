@@ -60,6 +60,7 @@ In summary
 ```bash
 cd /tmp
 git clone https://github.com/duranta-project/openairinterface5g.git
+cd openairinterface5g
 mkdir build
 cd build
 cmake .. -GNinja -DOAI_VRTSIM_TAPS_CLIENT=ON -DENABLE_CHANNEL_SIM_CUDA=ON  -DCMAKE_CUDA_ARCHITECTURES=native  -DCMAKE_CUDA_COMPILER=/usr/local/cuda/bin/nvcc
