@@ -9,9 +9,7 @@ The jupyterhub is available all academic researchers and students in Europe. You
 
 Once your SLICES account is created, you can sign in the jupyterhub by selecting "Sign in with Keycloak" and then slicesri. Please double check that this is working and let me know if not. 
 
-If your home institution is not a SLICES partner, don't despair - just get in touch with me directly and I will give you access through the Eurecom gitlab. 
-
-Some documentation of the jupyterhub cluster is [here](https://gitlab.eurecom.fr/jupyterhub-users/jupyterhub). 
+Some documentation of the jupyterhub cluster is [here](https://jupyterhub.eurecom.io/). 
 
 If you prefer to use your own computer (laptop or server you have access to) you can do that as well. In this case just double check that your computer fulfills the [system requirements](https://github.com/duranta-project/openairinterface5g/blob/develop/doc/system_requirements.md). 
 
