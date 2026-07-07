@@ -199,7 +199,7 @@ python3 -m venv ~/myvenv
 source ~/myvenv/bin/activate
 cd ~/raytracing-channel-emulator/server
 pip install -r requirements.txt
-flatc --python api/taps.fbs
+flatc --python api/Phy/taps.fbs
 ```
 
 ```
