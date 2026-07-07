@@ -147,7 +147,7 @@ You can now run the gNB, the UE, and the channel emulator as described in the tu
 cd ~/openairinterface5g/build
 
 sudo ./nr-softmodem \
-  -O /../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band78.fr1.106PRB.positioning.conf \
+  -O ../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band78.fr1.106PRB.positioning.conf \
   --gNBs.[0].min_rxtxtime 6 \
   --device.name vrtsim \
   --vrtsim.role server \
@@ -183,7 +183,7 @@ sudo ./nr-uesoftmodem \
   --ssb 516 \
   --device.name vrtsim \
   --vrtsim.taps-socket ipc:///tmp/ue_socket_0 \
-  -O ../targets/PROJECTS/GENERIC-NR-5GC/CONF/ue.conf \
+  -O ../targets/PROJECTS/GENERIC-NR-5GC/CONF/ue.conf 
 ```
 
 *Channel Emulator*
