@@ -195,14 +195,14 @@ git checkout origin/eurecom_simulation_godot_integration
 ```
 
 ```
-python3 -m venv myvenv
-source myvenv/bin/activate
-cd server
+python3 -m venv ~/myvenv
+source ~/myvenv/bin/activate
+cd ~/raytracing-channel-emulator/server
 pip install -r requirements.txt
 ```
 
 ```
-source ~/.venv/bin/activate
+source ~/myvenv/bin/activate
 cd ~/raytracing-channel-emulator/server
 python main.py scenes/EURECOM/example_config.yaml
 ```
